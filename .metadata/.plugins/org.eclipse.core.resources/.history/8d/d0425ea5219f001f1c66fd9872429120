@@ -1,0 +1,55 @@
+package com.Module2.Admin;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage extends BaseTest{
+	WebDriver driver;
+
+	// Login page constructor to initialize
+	public LoginPage(WebDriver driver){
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	/* 
+	 * Locators of login page
+	 */
+	@FindBy(name = "username")
+	WebElement uName;
+
+	@FindBy(name = "password")
+	WebElement pswrd;
+
+	@FindBy(xpath = "//button[text()=' Login ']")
+	WebElement loginBtn;
+
+	/* 
+	 * Actions Method
+	 */
+	@Override
+	//Abstract method
+		public void clickElement(WebElement we)
+		{
+			we.click();
+		}
+	public String appUrl() {
+		String url = driver.getCurrentUrl();
+		return url;
+	}
+
+	public String appTitle() {
+		String title = driver.getTitle();
+		return title;
+	}
+
+	public void doLogin(String un, String psw) {
+		uName.sendKeys(un);
+		pswrd.sendKeys(psw);
+		//loginBtn.click();
+		clickElement(loginBtn);
+		addWait();
+	}
+}

@@ -1,0 +1,104 @@
+package com.Module2.Admin;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class AdminPage {
+	WebDriver driver;
+
+	//Initialize page facort
+	public AdminPage(WebDriver driver)
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+	}
+	//Locators of Dashboard and Admin Page
+	
+	//Unorder left side list
+	@FindBy(xpath ="//li[@class='oxd-main-menu-item-wrapper']")
+	List<WebElement> menuOptions;
+	
+	//Admin option webelement
+	@FindBy(xpath = "//span[text()='Admin']")
+	WebElement adminOption;
+	
+	//Admin page heading
+	@FindBy(xpath="//h6[text()='Admin']")
+	WebElement adminHeader;
+	/*
+	 * Admin Page Locators
+	 */
+	
+	//Search Username text box locator
+	@FindBy(xpath="(//input[@class='oxd-input oxd-input--active'])[2]")
+	WebElement serachTextBox;
+	
+	//Search buttonlocator
+	@FindBy(xpath="//button[text()=' Search ']")
+	WebElement serachBtn;
+	
+	//No. of records in user grid after search
+	@FindBy (xpath="//div[@class='oxd-table-body']")
+	List <WebElement> totalRecords;
+	
+	//record found header after search
+	@FindBy(xpath="(//span[@class='oxd-text oxd-text--span'])[1]")
+	WebElement recordFoundHeader;
+	
+	//User role drop down 
+	//@FindBy (xpath = "(//div[@class='oxd-select-text-input'])[1]")
+	@FindBy (xpath = ("(//i[@class='oxd-icon bi-caret-down-fill oxd-select-text--arrow'])[1]"))
+	WebElement roledrpdwnList;
+	
+	//Admin option from drop down
+	//@FindBy (xpath="//span[text()='Admin'])[2]")
+	@FindBy (xpath="//div[contains(@role,'listbox')]")
+	WebElement adminDropdownOption;
+	
+	/*
+	 * Actions Methods
+	 */
+	public int getOptionsCount()
+	{
+		
+		return menuOptions.size();
+	}
+	
+	public void clickSearch()
+	{
+		click(serachBtn);
+	}
+	//Get the no of records
+	public int getRecordsCount()
+	{
+		return totalRecords.size();
+	}
+	//Click on option
+	public void click(WebElement option)
+	{
+		option.click();
+	}
+	
+	
+	
+	//Click on role drop down and select admin role
+	public void selectAdminRoleDrpDown()
+	{
+		System.out.println("In clickdropdown method");
+		roledrpdwnList.click();
+		adminDropdownOption.click();
+	}
+	
+	//Click on role drop down and select admin role
+		public void selectUserStatusRoleDrpDown()
+		{
+			System.out.println("In clickdropdown method");
+			roledrpdwnList.click();
+			adminDropdownOption.click();
+		}
+	
+}

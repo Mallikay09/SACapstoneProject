@@ -1,0 +1,19 @@
+package com.Module2.Admin;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class BaseTest {
+	WebDriver driver;
+	LoginPage lp;
+	
+	public void setUp()
+	{
+		driver= new ChromeDriver();
+		//Automate this to get from properties file
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.manage().window().maximize();
+		lp=new LoginPage(driver);
+	}
+
+}

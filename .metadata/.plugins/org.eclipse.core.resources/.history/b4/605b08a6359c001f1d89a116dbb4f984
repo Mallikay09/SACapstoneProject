@@ -1,0 +1,43 @@
+package com.Module2.Admin;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class LoginPage {
+	WebDriver driver;
+	
+	
+	//Locators of login page
+		@FindBy(name="username")
+		WebElement uName;
+		
+		@FindBy(name="password")
+		WebElement pswrd;
+		
+		@FindBy(xpath="//button[text()=' Login ']")
+		WebElement loginBtn;
+		
+		
+		//Actions Method
+		public String appUrl()
+		{
+			String url=driver.getCurrentUrl();
+			return url;
+		}
+
+		public String appTitle()
+		{
+			String title=driver.getTitle();
+			return title;
+		}
+		
+		public void doLogin(String un,String psw,WebElement we)
+		{
+			un="Admin";
+			psw="admin123";
+			we.click();
+				
+		}
+
+}

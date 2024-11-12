@@ -1,0 +1,74 @@
+package com.Module2.Admin;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class AdminPageTest extends BaseTest {
+	
+	@BeforeClass
+	public void login()
+	{
+		lp.doLogin(prop.getData("username"), prop.getData("password"));
+		addWait();
+	}
+	
+	
+  @Test(priority=1)
+  public void getLeftSideMenuOptions() {
+	 int optionscount= adminPage.getOptionsCount();
+	 System.out.println(optionscount);
+	 Assert.assertEquals(optionscount,12, "Count Not matched");
+	 System.out.println("Count is matched to 12 . Success");
+	 addWait();
+	 adminPage.click(adminPage.adminOption);
+	 addWait();
+	 System.out.println("Clicked on Admin Option");
+	 Assert.assertEquals(adminPage.adminHeader.getText(),"Admin","Failed to launch Admin page!");
+	 System.out.println("Launched to Admin page Success!");
+	  
+  }
+  
+  
+  
+  @Test(priority=2)
+  public void searchByUserName()
+  { 
+	  adminPage.serachTextBox.sendKeys("Admin");
+	  addWait();
+	  System.out.println("Searching with user name: Admin");
+	  adminPage.clickSearch();
+	  addWait();
+	  String output=adminPage.recordFoundHeader.getText();
+	  System.out.println(output);
+	  refreshPage();
+	  addWait();
+  }
+  
+  
+	
+	
+	
+	  @Test (priority=3)
+	  public void searchByUserRole() {
+		  System.out.println("Search by role");
+
+	        adminPage.selectAdminRoleDrpDown();
+	        adminPage.clickSearch();
+	        String output=adminPage.recordFoundHeader.getText();
+	  	  System.out.println(output);
+	  addWait(); 
+	  }
+	 
+		  @Test (priority=4) 
+		  public void searchByUserStatus() {
+			  adminPage.selectUserStatusRoleDrpDown();
+			  adminPage.clickSearch();
+			  String output=adminPage.recordFoundHeader.getText();
+		  	  System.out.println(output);
+		  addWait(); 
+		  }
+		  
+		 
+  
+}

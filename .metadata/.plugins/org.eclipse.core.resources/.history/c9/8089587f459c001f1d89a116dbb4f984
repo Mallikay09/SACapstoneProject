@@ -1,0 +1,33 @@
+package com.Module2.Admin;
+
+import java.time.Duration;
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+
+import com.Module2.Utility.PropertiesReader;
+
+public class BaseTest {
+	static WebDriver driver;
+	PropertiesReader prop;
+	LoginPage lp;
+	@BeforeTest
+	public void setUp()
+	{
+		prop =new PropertiesReader();
+		driver= new ChromeDriver();
+		//Automate this to get from properties file
+		driver.get(prop.getData("url"));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().window().maximize();
+		lp=new LoginPage(driver);
+	}
+	
+	public void addWait()
+	{
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+	}
+
+}

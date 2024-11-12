@@ -1,0 +1,31 @@
+package com.Module2.Admin;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeTest;
+import com.Module2.Utility.PropertiesReader;
+
+public abstract class BasePage {
+	protected WebDriver driver;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // Method to load the page (abstract method, implemented by subclasses)
+    public abstract void loadPage();
+
+    // Method to click an element, useful for encapsulating WebDriver actions
+    protected void clickElement(WebElement element) {
+        element.click();
+    }
+
+    // Method to enter text into a text field, encapsulating WebDriver actions
+    protected void enterText(WebElement element, String text) {
+        element.sendKeys(text);
+    }
+
+}

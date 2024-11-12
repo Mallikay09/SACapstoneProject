@@ -1,0 +1,82 @@
+package com.Module2.Admin;
+
+
+import java.time.Duration;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class AdminPageTest extends BaseTest {
+	
+	@BeforeClass
+	public void login()
+	{
+		lp.doLogin(prop.getData("username"), prop.getData("password"));
+		  addWait();
+	}
+	
+	
+  @Test(priority=1)
+  public void getLeftSideMenuOptions() {
+	 int optionscount= adminPage.getOptionsCount();
+	 System.out.println(optionscount);
+	 Assert.assertEquals(optionscount,12, "Count Not matched");
+	 System.out.println("Count is matched to 12 . Success");
+	 addWait();
+	 adminPage.click(adminPage.adminOption);
+	 addWait();
+	 System.out.println("Clicked on Admin Option");
+	 String actualHeader=adminPage.adminHeader.getText();
+	 String expected="Admin";
+	 Assert.assertEquals(actualHeader,expected,"Failed to launch Admin page!");
+	 System.out.println("Launched to Admin page Success!");
+	  
+  }
+  
+  
+  
+  @Test(priority=2)
+  public void searchByUserName()
+  { 
+	  adminPage.serachTextBox.sendKeys("Admin");
+	  addWait();
+	  System.out.println("Searching with user name: Admin");
+	  adminPage.clickSearch();
+	  addWait();
+	  String output=adminPage.recordFoundHeader.getText();
+	  System.out.println(output);
+	  refreshPage();
+	  addWait();
+  }
+  
+  
+	
+	
+	
+	  @Test public void searchByUserRole() {
+		// Create an explicit wait
+	        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	        // Wait until dropdown is clickable and click it
+	        //wait.until(ExpectedConditions.elementToBeClickable(adminPage.roledrpdwnList)).click();
+	  //adminPage.roledrpdwnList.click();
+	        adminPage.clickDrpDown();
+	  addWait(); 
+	  // adminPage.adminOption.click(); 
+	  // adminPage.selectAdmin(); //
+	  //System.out.println(adminPage.adminDropdownOption.getText());
+	  
+	  }
+	 
+	  
+		/*
+		 * @Test public void searchByUserStatus() {
+		 * 
+		 * }
+		 */
+	 
+  
+}

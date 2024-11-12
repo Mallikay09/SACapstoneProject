@@ -1,0 +1,56 @@
+package com.Module2.Admin;
+
+import java.util.Properties;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage {
+	WebDriver driver;
+	
+	//Login page constructor to initialize 
+		public LoginPage(WebDriver driver)//Driver from base class
+		{
+			this.driver=driver;
+			//Whenever we are using FindBy to locate element we need to initialize the "Page Factory"
+			//pass 2 parameters 1-driver, 2-this-current class object --so from which class we call that class object is passed as this
+			PageFactory.initElements(driver,this);
+			
+		}
+	//Locators of login page
+		@FindBy(name="username")
+		WebElement uName;
+		
+		
+		@FindBy(name="password")
+		WebElement pswrd;
+		
+		@FindBy(xpath="//button[text()=' Login ']")
+		WebElement loginBtn;
+		
+		
+		//Actions Method
+		public String appUrl()
+		{
+			String url=driver.getCurrentUrl();
+			return url;
+		}
+
+		public String appTitle()
+		{
+			String title=driver.getTitle();
+			return title;
+		}
+		
+		public void doLogin(String un,String psw) throws InterruptedException
+		{
+			uName.sendKeys(un);
+			pswrd.sendKeys(psw);
+			Thread.sleep(30);
+			loginBtn.click();
+				//return driver;
+		}
+
+}

@@ -1,0 +1,78 @@
+package com.Module2.Admin;
+
+
+import java.time.Duration;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class AdminPageTest extends BaseTest {
+	
+	@BeforeClass
+	public void login()
+	{
+		lp.doLogin(prop.getData("username"), prop.getData("password"));
+		  addWait();
+	}
+	
+	
+  @Test(priority=1)
+  public void getLeftSideMenuOptions() {
+	 int optionscount= adminPage.getOptionsCount();
+	 System.out.println(optionscount);
+	 Assert.assertEquals(optionscount,12, "Count Not matched");
+	 System.out.println("Count is matched to 12 . Success");
+	 addWait();
+	 adminPage.click(adminPage.adminOption);
+	 addWait();
+	 System.out.println("Clicked on Admin Option");
+	 String actualHeader=adminPage.adminHeader.getText();
+	 String expected="Admin";
+	 Assert.assertEquals(actualHeader,expected,"Failed to launch Admin page!");
+	 System.out.println("Launched to Admin page Success!");
+	  
+  }
+  
+  
+  
+  @Test(priority=2)
+  public void searchByUserName()
+  { 
+	  adminPage.serachTextBox.sendKeys("Admin");
+	  addWait();
+	  System.out.println("Searching with user name: Admin");
+	  adminPage.clickSearch();
+	  addWait();
+	  String output=adminPage.recordFoundHeader.getText();
+	  System.out.println(output);
+	  refreshPage();
+	  addWait();
+  }
+  
+  
+	
+	
+	
+	  @Test (priority=3)
+	  public void searchByUserRole() {
+		  System.out.println("Search by role");
+
+	        adminPage.clickDrpDown();
+	        adminPage.clickSearch();
+	        String output=adminPage.recordFoundHeader.getText();
+	  	  System.out.println(output);
+	  addWait(); 
+	  }
+	 
+	  
+		/*
+		 * @Test public void searchByUserStatus() {
+		 * 
+		 * }
+		 */
+	 
+  
+}

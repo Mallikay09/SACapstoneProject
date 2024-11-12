@@ -1,0 +1,106 @@
+package com.Module2.Admin;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class AdminPage {
+	WebDriver driver;
+
+	//Initialize page facort
+	public AdminPage(WebDriver driver)
+	{
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+	}
+	//Locators of Dashboard and Admin Page
+	
+	//Unorder left side list
+	@FindBy(xpath ="//li[@class='oxd-main-menu-item-wrapper']")
+	List<WebElement> menuOptions;
+	
+	//Admin option webelement
+	@FindBy(xpath = "//span[text()='Admin']")
+	WebElement adminOption;
+	
+	//Admin page heading
+	@FindBy(xpath="//h6[text()='Admin']")
+	WebElement adminHeader;
+	/*
+	 * Admin Page Locators
+	 */
+	
+	//Search Username text box locator
+	@FindBy(xpath="(//input[@class='oxd-input oxd-input--active'])[2]")
+	WebElement serachTextBox;
+	
+	//Search buttonlocator
+	@FindBy(xpath="//button[text()=' Search ']")
+	WebElement serachBtn;
+	
+	//No. of records in user grid after search
+	@FindBy (xpath="//div[@class='oxd-table-body']")
+	List <WebElement> totalRecords;
+	
+	//record found header after search
+	@FindBy(xpath="(//span[@class='oxd-text oxd-text--span'])[1]")
+	WebElement recordFoundHeader;
+	
+	//User role drop down 
+	@FindBy (xpath = "//div[@class='oxd-select-text-input']")
+	WebElement roledrpdwnList;
+	
+	//Admin option from drop down
+	@FindBy (xpath="//span[text()='Admin'])[2]")
+	WebElement adminDropdownOption;
+	
+	/*
+	 * Actions Methods
+	 */
+	public int getOptionsCount()
+	{
+		
+		return menuOptions.size();
+	}
+	
+	public void clickSearch()
+	{
+		click(serachBtn);
+	}
+	//Get the no of records
+	public int getRecordsCount()
+	{
+		return totalRecords.size();
+	}
+	//Click on option
+	public void click(WebElement option)
+	{
+		option.click();
+	}
+	
+	public char getCharAtHeader()
+	{
+		String text=recordFoundHeader.getText();
+		char secondChar = text.charAt(1);  // Index 1 is the second character
+        //System.out.println("The second character is: " + secondChar);
+		return secondChar;
+	}
+	
+	//Click on role drop down
+	public void clickDrpDown()
+	{
+		roledrpdwnList.click();
+	}
+	
+	//Get list of options in drop down and click on admin
+	public void selectAdmin()
+	{
+		roledrpdwnList.click();
+		adminDropdownOption.click();
+		
+	}
+	
+}

@@ -1,0 +1,22 @@
+package com.Module2.Admin;
+
+import java.time.Duration;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+
+public class BaseTest {
+	static WebDriver driver;
+	LoginPage lp;
+	@BeforeTest
+	public void setUp()
+	{
+		driver= new ChromeDriver();
+		//Automate this to get from properties file
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().window().maximize();
+		lp=new LoginPage(driver);
+	}
+
+}
